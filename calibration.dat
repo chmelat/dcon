@@ -1,0 +1,10 @@
+#
+# Calibration table 0
+;[mA -> MPa]
+ 4 20  # [mA]
+ 0 40  # [MPa]
+# 
+# Calibration table 1
+;[mA -> MPa] 
+ 4 20 # [mA]
+ 0 60 # [MPa] 
