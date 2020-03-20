@@ -55,9 +55,9 @@ void usage(void)
 void help(void)
 {
   static char *msg[] = {"-p [name]\tPort name (default: "PORT"), e.g. /dev/ttyU0, /dev/cua00",
-	                "-a [addr]\tADAM address (dec)",
+	                "-a [addr]\tDevice address (dec)",
 			"-i [dt]\t\tTime interval [s]",
-			"-c [code]\tEnable channels, code = ch[0]+2ch[1]+4ch[2]+...+128ch[7]\n\t\texample: code = 63 for enable all (ch[0]..ch[5])",
+			"-c [code]\tEnable channels, code = ch[0]+2ch[1]+4ch[2]+...+128ch[7]\n\t\texample: code = 63 for enable channels ch[0]..ch[5]",
                         "-t\t\tTerminal for manual type commands",
 			"-s [addr]\tScan address from 'addr' to 255",
 			"-w [{0-ever, 1-day, 2-week}]\tTime interval measurements",

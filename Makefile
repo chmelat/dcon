@@ -26,7 +26,7 @@ OPT = -O2
 # Ostatni parametry prekladace (-Wall -Wextra -pedantic)
 CFLAGS = -Wall -Wextra #-pedantic
 
-# Cilum build, install, uninstall, clean a distrib neodpovida primo zadny soubor
+# Cilum build, install, uninstall, clean a dist neodpovida primo zadny soubor
 # (predstirany '.PHONY' target)
 
 .PHONY: build
@@ -36,11 +36,7 @@ CFLAGS = -Wall -Wextra #-pedantic
 .PHONY: dist
 
 # list of valid suffixes through the use of the .SUFFIXES special target.
-# Pripony transformovanych soboru: s1.s2. jest  *.s1 --> *s2
 .SUFFIXES: .c .o
-
-# Prvni cil je implicitni, neni treba volat 'make build', staci 'make'.
-# Cil build nema zadnou akci, jen zavislost.
 
 build: $(program)
 
@@ -54,20 +50,11 @@ clean:
 	rm -f *.o $(program)
 
 dist:
-	tar czf $(program)-$(VERS).tgz $(SRC) $(HEAD) Makefile dcon_start.sh dcon_proc.sh dcon_kill.sh phrases.txt README
+	tar czf $(program)-$(VERS).tgz $(SRC) $(HEAD) Makefile dcon_start.sh dcon_proc.sh dcon_kill.sh README.md
 
 $(program): $(OBJ) Makefile
 	$(CC) $(OBJ) -o $(program) $(OPT)
 
-# The target form '.s1.s2', where .s1 and .s2 are currently valid suffixes, then
-# it defines a transformation from *.s1 to *.s2 (double suffix interference)
-# If a target has the form '.s1', where .s1 is a currently valid suffix,
-# then it defines a transformation from *.s1 to * (single suffix interference)
-#
-# <  The name of the prerequisite from which this target is to be built,
-#    if a valid inference rule (suffix rule) is in scope.
-
-# Zavislost objektovych souboru, v BSD make je tato syntax problem...
 #%.o: %.c $(HEAD) Makefile
 #	$(CC) $(CFLAGS) $(OPT) -c $<
 
