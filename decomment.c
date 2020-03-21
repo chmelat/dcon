@@ -1,6 +1,6 @@
 /*
- *  Odkomentovani ( vse za znakem '#') souboru
- *  V4/2016-12-24
+ *  Decomment, remove all characters until '\n' after char '#'
+ *  V4/2016-12-24/TCh
  */
 
 #include <stdio.h>
@@ -10,7 +10,7 @@
 
 FILE *decomment(const char *name)
 {
-  FILE *fr, *fw_tmp;  /* Popisovace souboru */
+  FILE *fr, *fw_tmp;  /* File descriptors */
   int c;  /* Char */
   int p = 0;  /* Position in line  */
 
@@ -20,7 +20,8 @@ FILE *decomment(const char *name)
             name, errno, strerror(errno));
     exit (EXIT_FAILURE);
   }
-    
+
+/* Create output (tmpfile) */  
   if ((fw_tmp = tmpfile()) == NULL) {
     fprintf(stderr, "Failed to open tmpfile. (%d: %s)\n",
             errno, strerror(errno));
@@ -29,7 +30,7 @@ FILE *decomment(const char *name)
 
   while ((c=getc(fr)) != EOF) {
     if (c == '#')
-      while ((c=getc(fr)) != '\n')  /* Preskoc vse az do znaku novy radek */
+      while ((c=getc(fr)) != '\n')  /* Skip all until \n */
         ;
 
     if (c == '\n' && p == 0)
@@ -49,7 +50,7 @@ FILE *decomment(const char *name)
     exit (EXIT_FAILURE);
   }
 
-/* Nastaveni na zacatek souboru */
+/* Set to begin file */
 #if 0  
   if (fseek(fw_tmp, 0, SEEK_SET) != 0) {
     fprintf(stderr, "Set pointer to beginning failed.\n");

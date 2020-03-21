@@ -1,5 +1,5 @@
 /*
- *  Function for read and setting channels
+ *  Function for read and setting module channels
  */
 
 #include <stdio.h>  /* Standard input/output definitions */
@@ -22,8 +22,8 @@ static void showbits(unsigned int x);  /* Vypis bitu cisla na terminal */
 
 /*
  *  Set channel
- *  Pri uspechu je navratova hodnota 0, pri nezdaru cteni je navratova hodnota -1
- *  v pripade chybne odpovedi je navratova hodnota -2.
+ *  In success is return value 0, after failure is return val. -1
+ *  At wrong answer is return value -2.
  *
  */
 int set_channels(int fd, unsigned char adr, unsigned int nc) 
@@ -33,14 +33,14 @@ int set_channels(int fd, unsigned char adr, unsigned int nc)
   char c_hi;
   char c_lo;
   
-  n2bytes(nc, &c_hi, &c_lo); /* prevod 'nc' na c */
+  n2bytes(nc, &c_hi, &c_lo); /* Transform number 'nc' to char 'c' */
 
-  sprintf(token,"$%02X5%c%c",adr,c_hi,c_lo);  /* Formulace tokenu - prikaz ADAMa */
+  sprintf(token,"$%02X5%c%c",adr,c_hi,c_lo);  /* Token construct */
   send_token(fd,token);  
   if (received_token(fd,token) < 0)
     return -1;
 
-  sprintf(buf,"!%02X",adr); /* Predpokladana odpoved ADAMa*/ 
+  sprintf(buf,"!%02X",adr); /* Assumed response */ 
 
   if (strncmp(buf,token,3) != 0)
     return -2;
@@ -53,11 +53,11 @@ int set_channels(int fd, unsigned char adr, unsigned int nc)
 
 
 /*
- *  Stanoveni poctu a cisel ctenych kanalu ADAMa:
+ *  Numbers and position of modules channels:
  *  $AA6  --> !AAab
- *  kde 'a' oznacuje 4 bity kanalu 4-7, 'b' kanaly 0-3
- *  Pri uspechu je navratova hodnota 0. Pri nezdaru cteni dat z ADAMa je navratova hodnota -1,
- *  v pripade chybne odpovedi z ADAMa je navratova hodnota -2.
+ *  where 'a' is 4 bits of channels 4-7 and 'b' channels 0-3
+ *  In success is return value 0, after failure is return val. -1
+ *  At wrong answer is return value -2.
  */
 int ch_mon(int fd, unsigned char adr, int ch[8])
 {
@@ -67,23 +67,23 @@ int ch_mon(int fd, unsigned char adr, int ch[8])
   char buf[8];
   unsigned int hi,lo;
 
-/* Dotaz na ADAMa - jake jsou ctene kanaly? */  
-  sprintf(token,"$%02X6",adr);  /* Formulace tokenu pro ADAMa */
+/* Question - what are read channels? */  
+  sprintf(token,"$%02X6",adr);  /* Token construct */
   send_token(fd,token);  
-  if (received_token(fd,token) < 0)   /* Odpoved ADAMa */
+  if (received_token(fd,token) < 0)   /* Module response */
     return -1;
 
-  sprintf(buf,"!%02X",adr); /* Predpokladana odpoved ADAMa*/ 
+  sprintf(buf,"!%02X",adr); /* Assumed response */ 
   if (strncmp(buf,token,3) != 0) 
     return -2;
 
-/* Prevod ascii znaku na uint */
+/* Transformation ASCII char to uint */
   sprintf(buf,"%c",token[3]); 
   sscanf(buf,"%x",&hi);
   sprintf(buf,"%c",token[4]); 
   sscanf(buf,"%x",&lo);
 
-/* Poradi a pocet ctenych kanalu... */  
+/* Position and number read channels */  
   for (i=0; i<4; i++) {
     if ( lo & (1<<i) ) {
       ch[nch++] = i; 
@@ -95,22 +95,24 @@ int ch_mon(int fd, unsigned char adr, int ch[8])
       ch[nch++] = i+4;
     }
   }
-  return nch;  /* Pocet otevrench kanalu */
+  return nch;  /* Number of opened channels */
 }
 
-/***  Lokalni fce  ***/
+/*
+ * Lokalni functions 
+ */
 
 /*
- *  Prevod cisla 'nc' na 2 byte 4-bitoveho kodovani
- *  c[0] je vyznamnejsi byte (kanaly 4-7)
- *  c[1] je mene vyznamny byte (kanaly 0-3)
+ *  Translation number 'nc' to 2 byte 4-bit encoding
+ *  c[0] is high byte (channels 4-7)
+ *  c[1] is lowes byte (channels 0-3)
  */
 static void n2bytes(unsigned int nc, char *c_hi, char *c_lo)
 {
     unsigned int hi, lo;
     
-    lo = (nc&15);    /* logicky soucin s '00001111' */
-    hi = (nc>>4)&15; /* bitovy posun o 4 doprava a log. soucin */
+    lo = (nc&15);    /* Logical product with '00001111' */
+    hi = (nc>>4)&15; /* Bits shift for 4 right and log. product */
 
     if (hi <= 9)
       *c_hi = (char)hi + '0';

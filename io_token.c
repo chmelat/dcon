@@ -1,6 +1,6 @@
 /*
- *  Odeslani a prijmuti tokenu na zarizeni oznacene popisovacem 'fd'
- *  protokolem DCON ('\r' je terminacni znak)
+ *  Send and recieving token to device 'fd'
+ *  by protocol DCON
  *
  */
 #include <stdio.h>
@@ -12,7 +12,7 @@
 #include "io_token.h"
 
 #define LTMAX 128  /* Maximal length of token (include '\0') */
-#define CR '\r'
+#define CR '\r' /* Terminal char */
 
 /*
  *  Send token to serial device (write)
@@ -21,7 +21,7 @@ int send_token (int fd, char *p_token)
 {
   size_t length;  /* Length of data */
 
-  length = strlen(p_token); /* delka tokenu */
+  length = strlen(p_token);
 //  printf("Send %zu char.\n",length);
 
   if (length > LTMAX-2) {
@@ -29,7 +29,7 @@ int send_token (int fd, char *p_token)
     exit (EXIT_FAILURE);
   }
 
-  p_token[length] = CR;  /* Terminacni znak */
+  p_token[length] = CR;  /* Terminal char */
   p_token[length+1] = '\0';  /* End of token */
 
   if (write (fd, p_token, length+1) < 0) {
@@ -42,17 +42,18 @@ int send_token (int fd, char *p_token)
 
 
 /*
- *  Recieve token from serial device (read)
+ *  Received token from serial device (read) return value is number of
+ *  received characters
  */
 int received_token (int fd, char *p_token)
 {
   char c = '\0';
-  ssize_t res;  /* pocet ctenych dat */
+  ssize_t res;  /* Number of reads data */
   int i = 0;
 /* Nacteni dat po 1 byt */
   while (c != CR) {
 //    printf("ctu znak\n");
-    res = read(fd, &c, 1); /* Cte data po 1 byte */
+    res = read(fd, &c, 1); /* Read data by 1 byte */
 //    putchar(c);
     if (res == 1)
       p_token[i++] = c;
@@ -72,5 +73,5 @@ int received_token (int fd, char *p_token)
   }
   p_token[i] = '\0';
 //  printf("Received %zu char.\n",i);
-  return i;  /* Pocet prijatych znaku */
+  return i;
 }

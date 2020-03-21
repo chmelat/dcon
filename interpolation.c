@@ -1,5 +1,6 @@
 /*
  *  Lagrange Interpolation
+ *  Construcr interpolation (extrapolation) polynom between table points
  */
 
 #include <stdio.h>

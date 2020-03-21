@@ -17,13 +17,13 @@ OBJ=serial.o terminal.o io_token.o time.o measure.o scan.o channels.o terminal_h
 SRC=serial.c terminal.c io_token.c time.c measure.c scan.c channels.c terminal_help.c interpolation.c read_table.c decomment.c table_interval.c main.c
 HEAD=serial.h terminal.h io_token.h time.h measure.h scan.h channels.h terminal_help.h interpolation.h read_table.h decomment.h table_interval.h typedef.h revision.h
 
-# Prekladac C
+# C translator (clang, gcc, ..)
 CC = clang
 
-# Mira optimalizace gcc (-O0 -g = debug, -O0 -pg = gprof, -O2 = normal)
+# Optimalization (-O0 -g = debug, -O0 -pg = gprof, -O2 = normal)
 OPT = -O2
 
-# Ostatni parametry prekladace (-Wall -Wextra -pedantic)
+# Other parameters (-Wall -Wextra -pedantic)
 CFLAGS = -Wall -Wextra #-pedantic
 
 # Cilum build, install, uninstall, clean a dist neodpovida primo zadny soubor

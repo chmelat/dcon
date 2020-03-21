@@ -11,7 +11,7 @@
 //#include <string.h>
 #include <unistd.h>  /* UNIX standard function definitions */
 #include <errno.h>
-#include <libgen.h>  /* Vyzaduje basename v novejsich versich C*/
+#include <libgen.h>
 
 #include "serial.h"
 #include "terminal.h"
@@ -29,7 +29,7 @@
 //#define PORT "/dev/ttyU0"  /* OpenBSD USB serial */
 // #define PORT "/dev/cua00"  /* OpenBSD COM0 */
 #define LTMAX 128  /* Maximal length of token (include '\0') */
-#define CR '\r'
+#define CR '\r' /* Terminal character */
 #define ADR '\x01'  /* Device default adress */
 #define VERBOSE 0  /* Print calibration tables */
 
@@ -49,7 +49,7 @@ int init(char *device)
 
 void usage(void)
 {
-    fprintf(stderr, "usage: %s [flags and parameters]\n\n" ,progname);
+    fprintf(stderr, "usage: %s [options and parameters]\n\n" ,progname);
 }
 
 void help(void)
@@ -66,7 +66,7 @@ void help(void)
                         "-h or -?\tHelp",
 	                0 };
   char **p = msg;
-  fprintf(stderr,"%s, ADAM reader. Version %s, %s\n\n", progname, VERSION, REVDATE);
+  fprintf(stderr,"%s, DCON. Version %s, %s\n\n", progname, VERSION, REVDATE);
   usage();
   while (*p) fprintf(stderr, "%s\n", *p++);
 }
