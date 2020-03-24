@@ -16,7 +16,7 @@ TRANS_TAB read_table(char *name_table) {
   TRANS_TAB T;
   int i=0, j=0;
 
-  for (i=0; i<MAX_C; i++) {      /* Clear note and table */
+  for (i=0; i<MAX_C; i++) {  /* Clear note and table */
     if (i%2 == 0) 
       T.note[i%2][0] = '\0';
     for (j=0; j<MAX_R; j++)
@@ -39,18 +39,18 @@ TRANS_TAB read_table(char *name_table) {
           ,name_table,j);
         exit(EXIT_FAILURE);
       }
-      if (c == ';') { /* After symbol ';' read note from file */
-        getc(fd_in); /* Zahod ';' */
+      if (c == ';') {  /* After symbol ';' read note from file */
+        getc(fd_in);  /* Throw away ';' */
         int k=0;
         while ((c=getc(fd_in)) != '\n' && c != EOF && k<MAX_CHAR-1) {
           T.note[i/2][k++] = c;
         }
         T.note[i/2][k] = '\0';
       }
-      fscanf(fd_in,"%lf",&x); /* Read number */
+      fscanf(fd_in,"%lf",&x);  /* Read number */
     T.M[i][j++] = x;
 //      printf ("%lf ",x); 
-      while ((c=getc(fd_in)) == ' '); /* Skip spaces */
+      while ((c=getc(fd_in)) == ' ');  /* Skip spaces */
       if (c != '\n')
         ungetc(c,fd_in);
     }

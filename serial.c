@@ -1,5 +1,5 @@
 /*
- *  Funkce pro otevreni a nastaveni parametru serioveho portu
+ *  Function for open and set of parameter communication on seriial port
  *  V1/7.11.2012/TCh
  */
 #include <stdio.h>   /* Standard input/output definitions */
@@ -10,7 +10,7 @@
 #include <errno.h>   /* Error number definitions */
 #include <termios.h> /* POSIX terminal control definitions */
 
-#include "serial.h" /* lokalni hlavickovy soubor */
+#include "serial.h"
 
 #define BAUD_RATE B9600
 

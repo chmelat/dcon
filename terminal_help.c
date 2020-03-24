@@ -39,9 +39,9 @@ void terminal_help(void)
     "$AA5VV\tEnables/Disables the channel",
     "$AA6\tReads the channel Enable/Disable status",
     "  -> !AAVV",
-    "$AA9\tReads the CJC Offse",
+    "$AA9\tReads the CJC Offset",
     "  -> !AA(Data)",
-    "$AA9SNNNN\tSets the CJC Ooffset",
+    "$AA9SNNNN\tSets the CJC Offset",
     "  -> !AA",
     "$AAA\tReads the Analog Inputs of All Channels in Hex Format",
     "$AAB\tReads the Channel Diagnostic Status",
@@ -56,7 +56,7 @@ void terminal_help(void)
      0};
   char **p = msg;
 
-  printf("Some commands of DCON (ADAM) protocol:\n");
+  printf("Some commands of DCON protocol:\n");
   while (*p)
     printf("%s\n", *p++);
 

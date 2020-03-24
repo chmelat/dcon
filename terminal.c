@@ -1,5 +1,5 @@
 /*
- *  Simple text terminal for communication with device
+ *  Simple text terminal for communication with data acquisition device
  *  V0.1/2015-07-17
  */
 #include <stdio.h>

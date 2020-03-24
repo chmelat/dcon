@@ -17,7 +17,7 @@ char *table_interval(int t) {
     exit(EXIT_FAILURE);
   }
 
-  sprintf(msg,"(%.2f..%.2f) -> (%.2f..%.2f)",\
+  snprintf(msg,256,"(%.2f..%.2f) -> (%.2f..%.2f)",\
           T.M[2*t][0],T.M[2*t][T.col[2*t]-1],\
           T.M[2*t+1][0],T.M[2*t+1][T.col[2*t]-1]);
   return msg;

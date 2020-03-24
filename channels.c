@@ -35,12 +35,12 @@ int set_channels(int fd, unsigned char adr, unsigned int nc)
   
   n2bytes(nc, &c_hi, &c_lo); /* Transform number 'nc' to char 'c' */
 
-  sprintf(token,"$%02X5%c%c",adr,c_hi,c_lo);  /* Token construct */
+  snprintf(token,LTMAX,"$%02X5%c%c",adr,c_hi,c_lo);  /* Token construct */
   send_token(fd,token);  
   if (received_token(fd,token) < 0)
     return -1;
 
-  sprintf(buf,"!%02X",adr); /* Assumed response */ 
+  snprintf(buf,8,"!%02X",adr); /* Assumed response */ 
 
   if (strncmp(buf,token,3) != 0)
     return -2;
@@ -68,19 +68,19 @@ int ch_mon(int fd, unsigned char adr, int ch[8])
   unsigned int hi,lo;
 
 /* Question - what are read channels? */  
-  sprintf(token,"$%02X6",adr);  /* Token construct */
+  snprintf(token,LTMAX,"$%02X6",adr);  /* Token construct */
   send_token(fd,token);  
   if (received_token(fd,token) < 0)   /* Module response */
     return -1;
 
-  sprintf(buf,"!%02X",adr); /* Assumed response */ 
+  snprintf(buf,8,"!%02X",adr); /* Assumed response */ 
   if (strncmp(buf,token,3) != 0) 
     return -2;
 
 /* Transformation ASCII char to uint */
-  sprintf(buf,"%c",token[3]); 
+  snprintf(buf,8,"%c",token[3]); 
   sscanf(buf,"%x",&hi);
-  sprintf(buf,"%c",token[4]); 
+  snprintf(buf,8,"%c",token[4]); 
   sscanf(buf,"%x",&lo);
 
 /* Position and number read channels */  

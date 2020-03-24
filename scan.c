@@ -24,7 +24,7 @@ enum {
 
 
 /*
- *  Scan adresniho prostoru od adresy 'adr' do  adresy 255
+ *  Scan adress from 'adr' to 255
  *  V0.1/2015-07-30
  */
 int adam_scan(int fd, unsigned char adr)
@@ -35,32 +35,31 @@ int adam_scan(int fd, unsigned char adr)
   char buf[LTMAX];
 
 
-/* Tisk hlavicky */
   printf("\nDevice address scan:\n");
 
-/* Nekonecny merici cyklus */
+/* Scan cycle */
   for (; adr<255; adr++) {
     printf("Address %02XH (%03d) ... ",adr,adr); fflush(stdout);
 
-    sprintf(token,"$%02XM",adr);  /* Token pro ADAMa (Read module name) */
+    snprintf(token,LTMAX,"$%02XM",adr);  /* Token: Read module name */
     send_token(fd,token);
-    if (received_token(fd,token) < 0) { /* Odpoved ADAMa */
-      putchar('\r');  /* Navrat voziku (CR), Adresa nekomunikuje */
+    if (received_token(fd,token) < 0) { /* Response */
+      putchar('\r');  /* Adress not response, send CR */
       continue;
     }
-    /* Vyhodnoceni odpovedi */
-    length = strlen(token); /* Pocet znaku tokenu */
-    if ( length > 3 ) {  /* Adresa komunikuje */
-      i = 3; /* Preskoc '!AA' (pocatek odpovedi ADAMa) */
+    /* Response o.k. */
+    length = strlen(token);
+    if ( length > 3 ) {
+      i = 3; /* Skip '!AA' (begin of response) */
       j = 0;
       while (token[i] != '\0' && i < LTMAX-1) {
         buf[j++] = token[i++];
       }
-      buf[j] = '\0'; /* Terminacni znak */
+      buf[j] = '\0'; /* Terminal char */
       printf("%s\n",buf);
     }
     else
-      putchar('\r');  /* Navrat voziku (CR), Adresa nekomunikuje */
+      putchar('\r');  /* Some error, send CR */
   }
   return 0;
 }
