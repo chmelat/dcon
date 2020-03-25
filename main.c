@@ -62,7 +62,7 @@ void help(void)
 			"-s [addr]\tScan address from 'addr' to 255",
 			"-w [{0-ever, 1-day, 2-week}]\tTime interval measurements",
                         "-z [m,n]\tApply transformation table n to channel m (Lagrange interpolation from table)",
-                        "-f\t\tWrite output to file and terminal",
+                        "-f\t\tWrite output to terminal and file",
                         "-h or -?\tHelp",
 	                0 };
   char **p = msg;
