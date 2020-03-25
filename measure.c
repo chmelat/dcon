@@ -131,8 +131,9 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
         fprintf(fp[k],"%s  ", now(0));  /* Print actual time */
         for (i=0; i < nch; i++) {
           for (j=0; j<itt; j++) {
-            if (ch[i] == z[j][0]) {  /* Translate select channels by interp. from  table */
+            if (ch[i] == z[j][0] && k == 0) {  /* Translate select channels by interp. from  table */
               val[i] = interpolation(val[i],z[j][1]);
+              break;
             }
           }
           (val[i] != 888888 && val[i] != -9999.9) ? fprintf(fp[k],"%-8.*f ",res,val[i]) : fprintf(fp[k],"NaN      "); /* Print 'res' frac. decimals */
@@ -205,7 +206,7 @@ static int resolution(int fd, unsigned char adr, char *name)
 {
   int res = 1; /* Default value */
   static char token[LTMAX];
-  static char *buf[] = {"4015","4013","7015","7013","7019R",0}; /* Devices (ADAM or ICP_CON) with high resolution */
+  static char *buf[] = {"4015","4013","7015","7013","7019R","4018P",0}; /* Devices (ADAM or ICP_CON) with high resolution */
   char **p = buf;
 
   snprintf(token,LTMAX,"$%02XM",adr);  /* Question for name */

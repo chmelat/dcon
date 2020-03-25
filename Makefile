@@ -7,6 +7,7 @@
 # V1.5/2019-11-10 Add terminal help
 # V1.8/2020-02-10 Add parameter -f
 # V1.9/2020-03-18 Read calibration tables from file, rename adam to dcon
+# V1.11/2020-03-25 Bugfix in print output to file
 #
 
 program=dcon
@@ -50,7 +51,7 @@ clean:
 	rm -f *.o $(program)
 
 dist:
-	tar czf $(program)-$(VERS).tgz $(SRC) $(HEAD) Makefile dcon_start.sh dcon_proc.sh dcon_kill.sh README.md
+	tar czf $(program)-$(VERS).tgz $(SRC) $(HEAD) Makefile dcon_start.sh dcon_proc.sh dcon_kill.sh README.md calibration.dat
 
 $(program): $(OBJ) Makefile
 	$(CC) $(OBJ) -o $(program) $(OPT)
