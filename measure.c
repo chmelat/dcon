@@ -21,6 +21,7 @@
 #include "typedef.h"
 #include "interpolation.h"
 #include "table_interval.h"
+#include "measure.h"
 
 /*
  * Lokalni int konstanty
@@ -33,6 +34,7 @@ enum {
  *  Declare local functions
  */
 static int get_value(int fd, unsigned char adr, int nch, double val[8]);
+static int device_name(int fd, unsigned char adr, char *name);
 // static int resolution(int fd, unsigned char adr, char *name);
 
 
@@ -86,6 +88,9 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
   }
 #endif
 
+  /* Device name */
+  device_name(fd, adr, name); 
+
   for (j=0; j<itt; j++) {
     z_fail = 1;
     for (i=0; i<nch; i++) {
@@ -111,17 +116,21 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
 
 /* Print head of device responeses */
   for (k=0; k<f+1; k++) {
+
+    fprintf(fp[k],"# %s\n",dev_name);
+    fprintf(fp[k],"#                       ");
+    for (i=0; i < nch; i++)
+      fprintf(fp[k],"%-9s",sensors[ch[i]]);
+    fprintf(fp[k],"\n#                       ");
+    for (i=0; i < nch; i++)
+      fprintf(fp[k],"Ch_%-6d",ch[i]);
+    fprintf(fp[k],"\n");
     fprintf(fp[k],"# Device type: %s\n",name);
     fprintf(fp[k],"# Device address: %02XH\n",adr);
-    fprintf(fp[k],"# Number of print decimal digits: %d\n",res);
-    fprintf(fp[k],"# Continual measure, dt = %.1lf s\n" , interval);
+//    fprintf(fp[k],"# Number of print decimal digits: %d\n",res);
+//    fprintf(fp[k],"# Continual measure, dt = %.1lf s\n" , interval);
     for (i=0; i<itt; i++)
       fprintf(fp[k],"# Transformation channel Ch%d via table %d: %s %s\n",z[i][0],z[i][1],T.note[i],table_interval(z[i][1]));
-    fprintf(fp[k],"#\n# Date                  ");
-    for (i=0; i < nch; i++) {  
-      fprintf(fp[k],"Ch %-6d",ch[i]);  
-    }
-    fprintf(fp[k],"\n");
     fflush(fp[k]); /* Flush buffer */
   }
 
@@ -229,3 +238,18 @@ static int resolution(int fd, unsigned char adr, char *name)
   return res;
 }
 #endif
+
+/*
+ *  Device name
+ */
+static int device_name(int fd, unsigned char adr, char *name)
+{
+  static char token[LTMAX];
+  snprintf(token,LTMAX,"$%02XM",adr);  /* Question for name */
+  send_token(fd,token);  
+  if (received_token(fd,token) < 0)   /* Response */
+    return -1;
+  strncpy(name,token+3,LTMAX-1);
+  return 0;
+}
+

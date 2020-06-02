@@ -13,6 +13,7 @@
 #include <unistd.h>  /* UNIX standard function definitions */
 #include <errno.h>
 #include <libgen.h>
+#include <string.h>
 
 #include "serial.h"
 #include "terminal.h"
@@ -24,6 +25,7 @@
 #include "typedef.h"
 #include "read_table.h"
 #include "table_interval.h"
+#include "read_sensor_names.h"
 
 /* Default port */
 #define PORT "/dev/ttyUSB0"  /* Linux USB serial */
@@ -39,6 +41,8 @@
  */
 char *progname;
 TRANS_TAB T;
+char *sensors[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}; /* Names of senssors at channels */
+char *dev_name = NULL; /* Device name specifed in command line */
 
 int init(char *device)
 {
@@ -65,6 +69,8 @@ void help(void)
                         "-z [m,n]\tApply transformation table n to channel m (Lagrange interpolation from table)",
                         "-f\t\tWrite output to terminal and file",
                         "-r [n]\tNumber of decimal places after dot in output values",
+                        "-d\t\tRead names of ID sensors from file",
+                        "-x [name]\t Set device name",
                         "-h or -?\tHelp",
 	                0 };
   char **p = msg;
@@ -97,8 +103,10 @@ int main(int argc, char *argv[])
   int z[8][2]; /* z[0] channel, z[1] transformation table */
   int itt=0; /* Index (and finally number) of transformation table */
   int f=0; /* Write output to file is dissable */
-  int first = 1; /* Read calibration table only once */
   int res = 2; /* Resolution (Number of decimal places after dot) */
+
+  char sen_name[] = "IDSensors.dat";
+  char cal_name[] = "calibration.dat";
 
 /* Initialization z array */
   {
@@ -115,7 +123,7 @@ int main(int argc, char *argv[])
   }
 
 /* Parameteres in command line */
-  while ( (c = getopt(argc, argv, "p:a:i:c:s:tw:z:fr:h?")) != -1 ) {
+  while ( (c = getopt(argc, argv, "p:a:i:c:s:tw:z:fr:dx:h?")) != -1 ) {
 //  printf("optind, argc: %d %d \n", optind, argc);
     switch (c) {
       case 'p':  /* Set port */
@@ -145,21 +153,16 @@ int main(int argc, char *argv[])
         w = atoi(optarg);
         break;
       case 'z':
-        if (first) {
-          char table_name[] = "calibration.dat";
 
-          T = read_table(table_name);
+        T = read_table(cal_name);
 
-          #if VERBOSE
-          int i;
-          for (i=0;i<T.tables;i++) {
-            printf("Table %d: %s\n",i,T.note[i]);
-            printf("%s\n\n",table_interval(i));
-          }
-          #endif
-
-          first = 0;
+        #if VERBOSE
+        for (int i=0;i<T.tables;i++) {
+          printf("Table %d: %s\n",i,T.note[i]);
+          printf("%s\n\n",table_interval(i));
         }
+        #endif
+
         sscanf(optarg,"%d, %d", &z[itt][0], &z[itt][1]);
         if (z[itt][0] < 0 || z[itt][0]>7) {  /* Channel */
           fprintf (stderr, "%s: Incorrect parameter -z %d,n!\n",progname,z[itt][0]);
@@ -180,6 +183,17 @@ int main(int argc, char *argv[])
         break;   
       case 'r': /* Resolution (Number of decimal places after dot) */
         res = atoi(optarg);
+        break;
+      case 'd':
+          read_sensor_names(sen_name, sensors);
+          #if VERBOSE
+          for (int i=0;i<8;i++) {
+            printf("Channel %d - sensor %s\n",i,sensors[i]);
+          }
+          #endif
+        break;
+      case 'x':
+        dev_name = strdup(optarg);
         break;
       case 'h':
         help();
