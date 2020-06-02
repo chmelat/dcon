@@ -3,6 +3,7 @@
  *
  *  V1.7/2020-02-07 Add multi -z parameter for transformation tables
  *  V1.10/2020-03-19
+ *  V1.11/2020-06-02 Add 'res' to options
  */
 
 
@@ -63,6 +64,7 @@ void help(void)
 			"-w [{0-ever, 1-day, 2-week}]\tTime interval measurements",
                         "-z [m,n]\tApply transformation table n to channel m (Lagrange interpolation from table)",
                         "-f\t\tWrite output to terminal and file",
+                        "-r [n]\tNumber of decimal places after dot in output values",
                         "-h or -?\tHelp",
 	                0 };
   char **p = msg;
@@ -96,6 +98,7 @@ int main(int argc, char *argv[])
   int itt=0; /* Index (and finally number) of transformation table */
   int f=0; /* Write output to file is dissable */
   int first = 1; /* Read calibration table only once */
+  int res = 2; /* Resolution (Number of decimal places after dot) */
 
 /* Initialization z array */
   {
@@ -112,7 +115,7 @@ int main(int argc, char *argv[])
   }
 
 /* Parameteres in command line */
-  while ( (c = getopt(argc, argv, "p:a:i:c:s:tw:z:fh?")) != -1 ) {
+  while ( (c = getopt(argc, argv, "p:a:i:c:s:tw:z:fr:h?")) != -1 ) {
 //  printf("optind, argc: %d %d \n", optind, argc);
     switch (c) {
       case 'p':  /* Set port */
@@ -175,6 +178,9 @@ int main(int argc, char *argv[])
       case 'f':
         f = 1; /* Write output to file is enable */
         break;   
+      case 'r': /* Resolution (Number of decimal places after dot) */
+        res = atoi(optarg);
+        break;
       case 'h':
         help();
         exit(EXIT_SUCCESS);
@@ -225,5 +231,5 @@ int main(int argc, char *argv[])
   }
 
 /* Default - measure */
-  return conti_measure(fd, adr, dt, w, itt, z, f);
+  return conti_measure(fd, adr, dt, w, itt, z, f, res);
 }

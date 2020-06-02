@@ -4,6 +4,7 @@
  *  V1.0/2018-03-21 Pocet desetinnych mist v zavislosti na typu ADAMa 
  *  V1.1/2019-12-04 Add ICP_DCON number of modules to select resolution 
  *  V1.2/2020-02-06 Add transformation function - interpolation from tables
+ *  V1.3/2020-06-02 Add resolution 'int res' to formal parameters
  */
 
 #include <stdio.h>  /* Standard input/output definitions */
@@ -32,21 +33,20 @@ enum {
  *  Declare local functions
  */
 static int get_value(int fd, unsigned char adr, int nch, double val[8]);
-static int resolution(int fd, unsigned char adr, char *name);
+// static int resolution(int fd, unsigned char adr, char *name);
 
 
 /*
  * Repeated measure, return value is 0 after time define in parameter w.
  * Otherwise -1 is returned.
  */
-int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, int z[8][2], int f)
+int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, int z[8][2], int f, int res)
 {
   int nch;  /* Number of measured channels */
   int ch[8];  /* Log. val. (0,1) select channels (0-7) */
   double val[8];  /* Read data */
   int i,j,k;
   time_t start, end, actual; /* Time [s] (from year 1970) */
-  int res = 1; /* Number of prints decimal places on read data */
   int z_fail;
   FILE *fp[2];  /* Pointer to output device (terminal, file) */
   char name[LTMAX]; /* Module name */
@@ -78,11 +78,13 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
     fprintf(stderr,"conti_measure: Error in channel select!\n");
     exit(EXIT_FAILURE);
   } 
+#if 0  
   res = resolution(fd, adr, name); /* Device resolution */
   if (res < 0) {
     fprintf(stderr,"conti_measure: Error in resolution decise!\n");
     exit(EXIT_FAILURE);
   }
+#endif
 
   for (j=0; j<itt; j++) {
     z_fail = 1;
@@ -197,6 +199,7 @@ static int get_value(int fd, unsigned char adr, int nch, double val[8])
 }
 
 
+#if 0
 /*
  * In success function returned number of decimal digits rought output,
  * otherwise returned -1.
@@ -225,3 +228,4 @@ static int resolution(int fd, unsigned char adr, char *name)
   }
   return res;
 }
+#endif

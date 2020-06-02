@@ -8,10 +8,11 @@
 # V1.8/2020-02-10 Add parameter -f
 # V1.9/2020-03-18 Read calibration tables from file, rename adam to dcon
 # V1.11/2020-03-25 Bugfix in print output to file
+# V1.12/2020-06-02 Add resolution (numb. of dec. places after dot) select to option
 #
 
 program=dcon
-VERS = 1.10
+VERS = 1.12
 
 # Seznam souboru
 OBJ=serial.o terminal.o io_token.o time.o measure.o scan.o channels.o terminal_help.o interpolation.o read_table.o decomment.o table_interval.o main.o

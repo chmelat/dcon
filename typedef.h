@@ -4,7 +4,7 @@
 
 #define MAX_C 12 /* Max column of table */
 #define MAX_R 16  /* 2*MAX_TABLES */
-#define MAX_CHAR 72 /* Max char. of note */
+#define MAX_CHAR 100 /* Max char. of note */
 
 /*
  * Transformation tables x -> f(x).
