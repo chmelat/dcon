@@ -40,7 +40,7 @@
  *  Global variable
  */
 char *progname;
-TRANS_TAB T;
+TRANS_TAB T;  /* Transformation table */
 char *sensors[8]={NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL}; /* Names of senssors at channels */
 char *dev_name = NULL; /* Device name specifed in command line */
 
@@ -103,9 +103,9 @@ int main(int argc, char *argv[])
   int z[8][2]; /* z[0] channel, z[1] transformation table */
   int itt=0; /* Index (and finally number) of transformation table */
   int f=0; /* Write output to file is dissable */
-  int res = 2; /* Resolution (Number of decimal places after dot) */
+  int res = 2; /* Default resolution (Number of decimal places after dot) */
 
-  char sen_name[] = "IDSensors.dat";
+  char sen_name[] = "IDSensors.dat"; /* */
   char cal_name[] = "calibration.dat";
 
 /* Initialization z array */
@@ -184,15 +184,10 @@ int main(int argc, char *argv[])
       case 'r': /* Resolution (Number of decimal places after dot) */
         res = atoi(optarg);
         break;
-      case 'd':
-          read_sensor_names(sen_name, sensors);
-          #if VERBOSE
-          for (int i=0;i<8;i++) {
-            printf("Channel %d - sensor %s\n",i,sensors[i]);
-          }
-          #endif
+      case 'd':  /* Read sensor names from file */
+        read_sensor_names(sen_name, sensors);
         break;
-      case 'x':
+      case 'x': /* Read device name from command line */
         dev_name = strdup(optarg);
         break;
       case 'h':

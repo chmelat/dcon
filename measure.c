@@ -118,7 +118,7 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
   for (k=0; k<f+1; k++) {
 
     fprintf(fp[k],"# %s\n",dev_name);
-    fprintf(fp[k],"#                       ");
+    fprintf(fp[k],"# DATE TIME             ");
     for (i=0; i < nch; i++)
       fprintf(fp[k],"%-9s",sensors[ch[i]]);
     fprintf(fp[k],"\n#                       ");
@@ -130,7 +130,7 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
 //    fprintf(fp[k],"# Number of print decimal digits: %d\n",res);
 //    fprintf(fp[k],"# Continual measure, dt = %.1lf s\n" , interval);
     for (i=0; i<itt; i++)
-      fprintf(fp[k],"# Transformation channel Ch%d via table %d: %s %s\n",z[i][0],z[i][1],T.note[i],table_interval(z[i][1]));
+      fprintf(fp[k],"# Transformation channel Ch_%d via table %d: %s %s\n",z[i][0],z[i][1],T.note[i],table_interval(z[i][1]));
     fflush(fp[k]); /* Flush buffer */
   }
 
@@ -147,7 +147,8 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
               break;
             }
           }
-          (val[i] != 888888 && val[i] != -9999.9) ? fprintf(fp[k],"%-8.*f ",res,val[i]) : fprintf(fp[k],"NaN      "); /* Print 'res' frac. decimals */
+//          (val[i] != 888888 && val[i] != -9999.9) ? fprintf(fp[k],"%-8.*f ",res,val[i]) : fprintf(fp[k],"NaN      "); /* Print 'res' frac. decimals */
+          fprintf(fp[k],"%-8.*f ",res,val[i]); /* Print 'res' frac. decimals */
         }
         fprintf(fp[k],"\n");
         fflush(fp[k]); /* Flush buffer */

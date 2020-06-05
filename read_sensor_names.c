@@ -1,5 +1,7 @@
 /*
- *  Read sensor names from file 
+ *  Read sensor names from file
+ *  return value is number of readed devices
+ *
  *  V0.1/2020-06-02
  */
 

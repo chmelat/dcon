@@ -43,7 +43,7 @@ CFLAGS = -Wall -Wextra #-pedantic
 build: $(program)
 
 install: build
-	cp $(program) /usr/local/bin
+	cp $(program) ~/bin
 
 uninstall:
 	rm -f /usr/local/bin/$(program)
