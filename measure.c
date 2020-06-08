@@ -116,7 +116,6 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
 
 /* Print head of device responeses */
   for (k=0; k<f+1; k++) {
-
     fprintf(fp[k],"# %s\n",dev_name);
     fprintf(fp[k],"# DATE TIME             ");
     for (i=0; i < nch; i++)
