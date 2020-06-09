@@ -24,7 +24,7 @@
 # main
   while true
   do
-    datum=`date +%y%m%d%H%`  # datum
+    datum=`date +%y%m%d%H`  # datum
     name="${device_name}_${datum}"
 
     dcon_par $device_name $name
