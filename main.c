@@ -65,7 +65,7 @@ void help(void)
 			"-c [code]\tEnable channels, code = ch[0]+2ch[1]+4ch[2]+...+128ch[7]\n\t\texample: code = 63 for enable channels ch[0]..ch[5]",
                         "-t\t\tTerminal for manual type commands",
 			"-s [addr]\tScan address from 'addr' to 255",
-			"-w [{0-ever, 1-day, 2-week}]\tTime interval measurements",
+			"-w [{0-ever, 1-day, 2-week, 3-hour}]\tTime interval measurements",
                         "-z [m,n]\tApply transformation table n to channel m (Lagrange interpolation from table)",
                         "-f\t\tWrite output to terminal and file",
                         "-r [n]\tNumber of decimal places after dot in output values",
