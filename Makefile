@@ -20,7 +20,7 @@ SRC=serial.c terminal.c io_token.c time.c measure.c scan.c channels.c terminal_h
 HEAD=serial.h terminal.h io_token.h time.h measure.h scan.h channels.h terminal_help.h interpolation.h read_table.h decomment.h table_interval.h read_sensor_names.h typedef.h revision.h
 
 # C translator (clang, gcc, ..)
-CC = clang
+CC = gcc
 
 # Optimalization (-O0 -g = debug, -O0 -pg = gprof, -O2 = normal)
 OPT = -O2

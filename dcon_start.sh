@@ -15,8 +15,8 @@
 # Copy zipped  data to destination directory
   copy_dat () {
     if [ -s ${1}.dat ]; then  # Soubor je nenulove delky
+      cp ${1}.dat ${2}
       tar cfz ${1}.tgz ${1}.dat && rm ${1}.dat
-      cp ${1}.tgz ${2}
     fi
   }
 
