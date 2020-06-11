@@ -8,7 +8,7 @@
 #
 # dcon with parameters directed to data file
   dcon_par () {
-    ~/bin/dcon -a 01 -i 10 -w 2 -d -x ${1} -z 0,0 -z 1,0 |\
+    ~/bin/dcon -a 01 -i 10 -w 1 -d -x ${1} -z 0,0 -z 1,0 |\
     tee -a ${2}.dat >/dev/null
   }
 #
