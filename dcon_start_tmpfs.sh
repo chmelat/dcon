@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# V0.1/2020-06-09
+# V0.1/2020-06-12
 # Simple datalogger for dcon
 #
   device_name="PEC-HV"
@@ -9,15 +9,14 @@
 #
 # dcon with parameters directed to data file
   dcon_par () {
-    ~/bin/dcon -a 01 -i 10 -w 1 -d -x ${1} -z 0,0 -z 1,0 |\
-    tee -a ${3}${2}.dat >/dev/null
+    ~/bin/dcon -a 01 -i 10 -w 1 -d -x $1 -z 0,0 -z 1,0 |\
+    tee -a $2 >/dev/null
   }
 #
-# Copy zipped  data to destination directory
+# Copy data to destination directory
   copy_dat () {
-    if [ -s ${1}.dat ]; then  # Soubor je nenulove delky
-      cp ${3}.${1}.dat ${2}
-      rm ${3}${1}.dat
+    if [ -s $1 ]; then  # File is non zero length
+      cp $1 $2 && rm $1
     fi
   }
 
@@ -25,9 +24,9 @@
 # main
   while true
   do
-    datum=`date +%y%m%d%H%M`  # datum
-    name="${device_name}_${datum}"
+    datum=`date +%y%m%d%H%M%S`  # date
+    name="${dest_dir}${device_name}_${datum}.dat"
 
-    dcon_par $device_name $name $data_dir
-    copy_dat $name $dest_dir $data_dir &
+    dcon_par $device_name $name
+    copy_dat $name $dest_dir &
   done
