@@ -108,11 +108,13 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
 /* Time control */
   time(&start);
   if (w==1) 
-    end = start + 60*60*24; /* One day [s] */	
+    end = start + 60; /* One min [s] */	
   else if (w==2) 
-    end = start + 60*60*24*7; /* One week [s] */
-  else if (w==3) 
     end = start + 60*60; /* One hour [s] */
+  else if (w==3) 
+    end = start + 60*60*24; /* One day [s] */
+  else if (w==4) 
+    end = start + 60*60*24*7; /* One week [s] */
   else 
     end = 0;
 
