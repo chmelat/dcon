@@ -4,7 +4,7 @@
 # Simple datalogger for dcon
 #
   device_name="PEC-HV"
-  data_dir="/mnt/tmpfs/"
+  data_dir="/mnt/tmpfs/"  # ramdisc
   dest_dir="/mnt/pubkovy/m_data/"
 #
 # dcon with parameters directed to data file
