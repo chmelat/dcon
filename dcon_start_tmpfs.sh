@@ -22,6 +22,9 @@
 
 #
 # main
+
+  mv ${data_dir}*.dat ${dest_dir}
+
   while true
   do
     datum=`date +%y%m%d%H%M%S`  # date
