@@ -1,10 +1,11 @@
 #!/bin/sh
 #
 # V0.1/2020-06-12
+# V0.2/2020-06-15  Simlified formal parameters
 # Simple datalogger for dcon
 #
   device_name="PEC-HV"
-  data_dir="/mnt/tmpfs/"  # ramdisc
+  data_dir="/mnt/tmpfs/"  # Path to ramdisk
   dest_dir="/mnt/pubkovy/m_data/"
 #
 # dcon with parameters directed to data file
@@ -28,7 +29,7 @@
   while true
   do
     datum=`date +%y%m%d%H%M%S`  # date
-    name="${dest_dir}${device_name}_${datum}.dat"
+    name="${data_dir}${device_name}_${datum}.dat"
 
     dcon_par $device_name $name
     copy_dat $name $dest_dir &
