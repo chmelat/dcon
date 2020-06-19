@@ -1,11 +1,10 @@
 #!/bin/sh
 #
 # V0.1/2020-06-12
-# V0.2/2020-06-15  Simlified formal parameters
 # Simple datalogger for dcon
 #
   device_name="PEC-HV"
-  data_dir="/mnt/tmpfs/"  # Path to ramdisk
+  data_dir="/mnt/tmpfs/"  # ramdisc
   dest_dir="/mnt/pubkovy/m_data/"
 #
 # dcon with parameters directed to data file
