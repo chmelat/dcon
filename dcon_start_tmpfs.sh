@@ -6,10 +6,12 @@
   device_name="PEC-HV"
   data_dir="/mnt/tmpfs/"  # ramdisc
   dest_dir="/mnt/pubkovy/m_data/"
+
+  cd /home/zero/dcon-PEC-HV  # working directory for read conf files
 #
 # dcon with parameters directed to data file
   dcon_par () {
-    ~/bin/dcon -a 01 -i 10 -w 1 -d -x $1 -z 0,0 -z 1,0 |\
+    dcon -a 01 -i 10 -w 1 -d -x $1 -z 0,0 -z 1,0 |\
     tee -a $2 >/dev/null
   }
 #
