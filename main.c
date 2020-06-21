@@ -66,12 +66,12 @@ void help(void)
 			"-c [code]\tEnable channels, code = ch[0]+2ch[1]+4ch[2]+...+128ch[7]\n\t\texample: code = 63 for enable channels ch[0]..ch[5]",
                         "-t\t\tTerminal for manual type commands",
 			"-s [addr]\tScan address from 'addr' to 255",
-			"-w [{0-ever, 1-min, 2-hour, 3-day, 4-week}]\tTime interval measurements",
-                        "-z [m,n]\tApply transformation table n to channel m (Lagrange interpolation from table)",
-                        "-f\t\tWrite output to terminal and file",
-                        "-r [n]\tNumber of decimal places after dot in output values",
-                        "-d\t\tRead names of ID sensors from file",
-                        "-x [name]\t Set device name",
+			"-w [n]\t\tTime interval for measure {0-ever, 1-min, 2-hour, 3-day, 4-week}",
+                        "-z [m,n]\tApply transf. table n to channel m (Lagrange interpol. from table)",
+                        "-f\t\tWrite output to terminal and file in format: aa_yymmddhhmmss.dat",
+                        "-r [n]\t\tNumber of decimal places after dot in output values",
+                        "-d\t\tRead names of ID sensors from file 'IDSensors.dat'",
+                        "-x [name]\t'name' is printed in output (device)",
                         "-h or -?\tHelp",
 	                0 };
   char **p = msg;

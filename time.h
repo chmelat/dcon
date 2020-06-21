@@ -1,1 +1,1 @@
-extern char *now(int f);
+extern char *now(int f, unsigned char adr);

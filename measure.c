@@ -5,6 +5,7 @@
  *  V1.1/2019-12-04 Add ICP_DCON number of modules to select resolution 
  *  V1.2/2020-02-06 Add transformation function - interpolation from tables
  *  V1.3/2020-06-02 Add resolution 'int res' to formal parameters
+ *  V1.4/2020-06-21 New format of output filename
  */
 
 #include <stdio.h>  /* Standard input/output definitions */
@@ -61,8 +62,8 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
   fp[0] = stdout;
 /* Open output file, name according to time */
   if (f==1) {
-    if ( (fp[1]=fopen(now(1), "w")) == NULL ) {
-      fprintf(stderr, "Can't open file '%s' for writing.\n",now(2));
+    if ( (fp[1]=fopen(now(1,adr), "w")) == NULL ) {
+      fprintf(stderr, "Can't open file '%s' for writing.\n",now(1,adr));
       exit(EXIT_FAILURE);
     }
   }
@@ -142,7 +143,7 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
     if ( get_value(fd, adr, nch, val) == 0 ) { /* Read values from module */
 /* Print output */
       for (k=0; k<f+1; k++) {
-        fprintf(fp[k],"%s  ", now(0));  /* Print actual time */
+        fprintf(fp[k],"%s  ", now(0,adr));  /* Actual date and time */
         for (i=0; i < nch; i++) {
           for (j=0; j<itt; j++) {
             if (ch[i] == z[j][0] && k == 0) {  /* Translate select channels by interp. from  table */
