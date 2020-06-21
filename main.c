@@ -5,6 +5,7 @@
  *  V1.10/2020-03-19
  *  V1.11/2020-06-02 Add 'res' to options
  *  V1.13/2020-06-12 Change in -w options
+ *  V1.14/2020-06-21 Rename of data file (-f parameter)
  */
 
 
