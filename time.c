@@ -3,7 +3,7 @@
  *  V1.0/2012-12-05
  *  V1.1/2020-02-10 Add parameter int f
  *  V1.2/2020-06-21 New format of filename: aa_yymmddhhmmss.dat, f changed to adr
- *  V1.3/2020-06-27 Output time in [ms]
+ *  V1.3/2020-06-27 Output time in [ms] (ISO 8601)
  */
 #include <stdio.h>  /* Standard input/output definitions */
 #include <stdlib.h>  /* Standard lib */
