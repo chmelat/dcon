@@ -39,7 +39,7 @@ char *now(unsigned char adr)
   if (adr==0) { /* Output time format */
     /* Conversion time structure to desired form */
     strftime(buf_tmp,sizeof(buf),"%Y-%m-%d %H:%M:%S",ts);
-    snprintf(buf,DBUF,"%s.%03ud",buf_tmp,(unsigned int)(now.tv_usec/1E3));  /* Add fraction (ms) */
+    snprintf(buf,DBUF,"%s.%03u",buf_tmp,(unsigned int)(now.tv_usec/1E3));  /* Add fraction (ms) */
    /* printf("%06u\n", now.tv_usec); */  /*ladici*/
   }
   else  {  /* Name of file in format: aa_yymmddhhmmss.dat */
