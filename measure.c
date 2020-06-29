@@ -122,10 +122,10 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
 /* Print head of device responeses */
   for (k=0; k<f+1; k++) {
     fprintf(fp[k],"# %s\n",dev_name);
-    fprintf(fp[k],"# DATE TIME             ");
+    fprintf(fp[k],"# DATE TIME              ");
     for (i=0; i < nch; i++)
       fprintf(fp[k],"%-9s",sensors[ch[i]]);
-    fprintf(fp[k],"\n#                       ");
+    fprintf(fp[k],"\n#                        ");
     for (i=0; i < nch; i++)
       fprintf(fp[k],"Ch_%-6d",ch[i]);
     fprintf(fp[k],"\n");

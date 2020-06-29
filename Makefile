@@ -1,19 +1,9 @@
 #
 # Makefile 
-# V1.1/2013-05-01
-# V1.2/2014-12-06 Add comments
-# V1.3/2015-06-15
-# V1.4/2016-1-19 Add time control
-# V1.5/2019-11-10 Add terminal help
-# V1.8/2020-02-10 Add parameter -f
-# V1.9/2020-03-18 Read calibration tables from file, rename adam to dcon
-# V1.11/2020-03-25 Bugfix in print output to file
-# V1.12/2020-06-02 Add resolution (numb. of dec. places after dot) select to option. Add ID sensors names
-# V1.13/2020-06-12 Change in -w options, add dcon_start_tmpfs.sh
 #
 
 program=dcon
-VERS = 1.13
+VERS = 1.14
 
 # Seznam souboru
 OBJ=serial.o terminal.o io_token.o time.o measure.o scan.o channels.o terminal_help.o interpolation.o read_table.o decomment.o table_interval.o read_sensor_names.o main.o
@@ -53,7 +43,7 @@ clean:
 	rm -f *.o $(program)
 
 dist:
-	tar czf $(program)-$(VERS).tgz $(SRC) $(HEAD) Makefile dcon_start.sh dcon_start_tmpfs.sh\
+	tar czf $(program)-$(VERS).tgz $(SRC) $(HEAD) Makefile dcon.sh dcon_start.sh dcon_start_tmpfs.sh\
 	  dcon_proc.sh dcon_kill.sh README.md calibration.dat IDSensors.dat
 
 $(program): $(OBJ) Makefile
