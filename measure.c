@@ -145,14 +145,17 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
       for (k=0; k<f+1; k++) {
         fprintf(fp[k],"%s  ", now(0));  /* Actual date and time */
         for (i=0; i < nch; i++) {
-          for (j=0; j<itt; j++) {
-            if (ch[i] == z[j][0] && k == 0) {  /* Translate select channels by interp. from  table */
-              val[i] = interpolation(val[i],z[j][1]);
-              break;
+          if (val[i] != 888888 && val[i] != -9999.9 && val[i] != 9999.9) { /* Reasonable value... */
+            for (j=0; j<itt; j++) {
+              if (ch[i] == z[j][0] && k == 0) {  /* Translate select channels by interp. from  table */
+                val[i] = interpolation(val[i],z[j][1]);
+                break;
+              }
             }
+            fprintf(fp[k],"%-8.*f ",res,val[i]); /* Print 'res' frac. decimals */
+          } else {
+            fprintf(fp[k],"%-8s ","NaN"); /* Print 'NaN' */
           }
-          (val[i] != 888888 && val[i] != -9999.9 && val[i] != 9999.9) ? fprintf(fp[k],"%-8.*f ",res,val[i]) : fprintf(fp[k],"NaN      "); /* Print 'res' frac. decimals */
-//          fprintf(fp[k],"%-8.*f ",res,val[i]); /* Print 'res' frac. decimals */
         }
         fprintf(fp[k],"\n");
         fflush(fp[k]); /* Flush buffer */
