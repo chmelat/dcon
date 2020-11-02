@@ -151,8 +151,8 @@ int conti_measure(int fd, unsigned char adr, double interval, int w, int itt, in
               break;
             }
           }
-//          (val[i] != 888888 && val[i] != -9999.9) ? fprintf(fp[k],"%-8.*f ",res,val[i]) : fprintf(fp[k],"NaN      "); /* Print 'res' frac. decimals */
-          fprintf(fp[k],"%-8.*f ",res,val[i]); /* Print 'res' frac. decimals */
+          (val[i] != 888888 && val[i] != -9999.9 && val[i] != 9999.9) ? fprintf(fp[k],"%-8.*f ",res,val[i]) : fprintf(fp[k],"NaN      "); /* Print 'res' frac. decimals */
+//          fprintf(fp[k],"%-8.*f ",res,val[i]); /* Print 'res' frac. decimals */
         }
         fprintf(fp[k],"\n");
         fflush(fp[k]); /* Flush buffer */
