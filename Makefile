@@ -3,7 +3,7 @@
 #
 
 program=dcon
-VERS = 1.14
+VERS = 1.15
 
 # Seznam souboru
 OBJ=serial.o terminal.o io_token.o time.o measure.o scan.o channels.o terminal_help.o interpolation.o read_table.o decomment.o table_interval.o read_sensor_names.o main.o

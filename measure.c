@@ -6,6 +6,7 @@
  *  V1.2/2020-02-06 Add transformation function - interpolation from tables
  *  V1.3/2020-06-02 Add resolution 'int res' to formal parameters
  *  V1.4/2020-06-21 New format of output filename
+ *  V1.5/2020-11-02 Print NaN at open measure circuit...
  */
 
 #include <stdio.h>  /* Standard input/output definitions */
