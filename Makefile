@@ -35,6 +35,10 @@ build: $(program)
 
 install: build
 	cp $(program) /usr/local/bin
+	cp dcon.sh /etc/init.d
+	cp dcon_start_tmpfs.sh /usr/local/bin
+	cp IDSensors.dat /usr/local/bin
+	cp calibration.dat /usr/local/bin
 
 uninstall:
 	rm -f /usr/local/bin/$(program)

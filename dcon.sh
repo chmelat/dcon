@@ -7,7 +7,7 @@
   case "$1" in
     start)
       echo "Starting dcon ..."
-      /home/zero/dcon-PEC-HV/dcon_start_tmpfs.sh &
+      /usr/local/bin/dcon_start_tmpfs.sh &
       ;;
     stop)
       echo "Stopping dcon ..."

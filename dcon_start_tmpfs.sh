@@ -1,15 +1,15 @@
 #!/bin/sh
 #
+# Simple datalogger for dcon
 # V0.1/2020-06-12
 # V0.2/2020-08-03 add second dest. dir (dest_dir_s)
-# Simple datalogger for dcon
 #
   device_name="PEC-HV"
   data_dir="/mnt/tmpfs/"  # ramdisc
   dest_dir="/mnt/pubkovy/m_data/"
   dest_dir_s="/mnt/pubkovy/m_data_s/"
 
-  cd /home/zero/dcon-PEC-HV  # working directory for read init scripts
+  cd /usr/local/bin  # Working directory for read init scripts
 #
 # dcon with parameters directed to data file
   dcon_par () {
@@ -27,7 +27,10 @@
 #
 # main
 
-  mv ${data_dir}*.dat ${dest_dir}
+  if [ -d "$dest_dir" ]; then  # Destination directory exist
+    cp ${data_dir}*.dat ${dest_dir}
+    cp ${data_dir}*.dat ${dest_dir_s} && rm ${data_dir}*.dat
+  fi  
 
   while true
   do
