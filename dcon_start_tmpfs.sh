@@ -2,14 +2,15 @@
 #
 # Simple datalogger for dcon
 # V0.1/2020-06-12
-# V0.2/2020-08-03 add second dest. dir (dest_dir_s)
+# V0.2/2020-08-03 Add second dest. dir (dest_dir_s)
+# V0.3/2020-12-08 cd to working directory at top
 #
+  cd /usr/local/bin  # Working directory for read init scripts
+
   device_name="PEC-HV"
   data_dir="/mnt/tmpfs/"  # ramdisc
   dest_dir="/mnt/pubkovy/m_data/"
   dest_dir_s="/mnt/pubkovy/m_data_s/"
-
-  cd /usr/local/bin  # Working directory for read init scripts
 #
 # dcon with parameters directed to data file
   dcon_par () {
