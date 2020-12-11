@@ -4,6 +4,7 @@
 # V0.1/2020-06-12
 # V0.2/2020-08-03 Add second dest. dir (dest_dir_s)
 # V0.3/2020-12-08 cd to working directory at top
+# V0.4/2020-12-11 rm output with zero lenght
 #
   cd /usr/local/bin  # Working directory for read init scripts
 
@@ -23,6 +24,8 @@
     if [ -s $1 ]; then  # File is non zero length
       cp $1 $3
       cp $1 $2 && rm $1
+    else
+      rm $1  
     fi
   }
 #
