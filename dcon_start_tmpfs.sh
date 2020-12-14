@@ -25,7 +25,8 @@
       cp $1 $3
       cp $1 $2 && rm $1
     else
-      rm $1  
+      rm $1
+      sleep 10 
     fi
   }
 #
