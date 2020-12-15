@@ -23,7 +23,7 @@
   copy_dat () {
     if [ -s $1 ]; then  # File is non zero length
       cp $1 $3
-      cp $1 $2 && rm $1
+      cp $1 $2 && rm $1 
     else
       rm $1
       sleep 10 
@@ -33,8 +33,8 @@
 # main
 
   if [ -d "$dest_dir" ]; then  # Destination directory exist
-    cp ${data_dir}*.dat ${dest_dir}
-    cp ${data_dir}*.dat ${dest_dir_s} && rm ${data_dir}*.dat
+    cp ${data_dir}*.dat ${dest_dir} >/dev/null 2>&1
+    cp ${data_dir}*.dat ${dest_dir_s} && rm ${data_dir}*.dat >/dev/null 2>&1
   fi  
 
   while true
