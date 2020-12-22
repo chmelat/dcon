@@ -17,7 +17,7 @@ void terminal_help(void)
     "  FF is a hex. number that eq. 8-bit parameter",
     "  7   6   5   4   3   2   1   0",
     "  it  ch  n   n   n   n   df  df ",
-    "  it-integ. time 1-50Hz, 2-60Hz pow.; ch-checksum 0-dis.,1-enab.; n-not used",
+    "  it-integ. time 1-50Hz, 0-60Hz pow.; ch-checksum 0-dis.,1-enab.; n-not used",
     "  df-data format 00 engineering, 01 % of FSR, 10 two's comp. hex.",
     "  Example: (%01020F0680) Adr1->2; TC->K; 9600bps; 50Hz power, no chks\n",
     "$AA7CiRrr\tSets the single channel range configuration",
