@@ -25,7 +25,7 @@ void terminal_help(void)
     "  Ci i specifies the input channel to be set (0..n)",
     "  Rrr rr represents the type code of the channel to be set",
     "    0F: TC type K; 07: +4 to 20 mA; 08: +/- 10 V; 09: +/- 5 V",
-    "  Example: (%017C0R07) Addres 1, channel 0 set to input 4 to 20 mA",
+    "  Example: ($017C0R07) Addres 1, channel 0 set to input 4 to 20 mA",
     "    -> !01\n",
     "$AA8Ci\tReads the single channel range configuration",
     "  -> !AACiRrr",
