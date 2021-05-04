@@ -47,6 +47,7 @@ int set_channels(int fd, unsigned char adr, unsigned int nc)
 
   printf("set_channels: ");
   showbits(nc);
+  putchar('\n');
 
   return 0;
 }
@@ -129,10 +130,13 @@ static void n2bytes(unsigned int nc, char *c_hi, char *c_lo)
 /*
  *  Write bits of number on terminal
  */
-static void showbits(unsigned int x)
+
+void showbits(unsigned int x)
 {
-  int i; 
-  for(i=(sizeof(unsigned int)*8-1); i>=0; i--)
-    (x&(1<<i))?putchar('1'):putchar('0');
-  printf("\n");
+  static unsigned int i = 0;
+
+    if (++i < sizeof(char)*8) {
+    showbits(x >> 1); /* Recursion, bit shift 1 right (null from left) */
+  }
+  putc((x & 1) ? '1' : '0', stdout);
 }

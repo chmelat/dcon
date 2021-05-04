@@ -81,13 +81,6 @@ void help(void)
   while (*p) fprintf(stderr, "%s\n", *p++);
 }
 
-void showbits(char x)
-{
-  int i; 
-  for(i=(sizeof(char)*8)-1; i>=0; i--)
-    (x&(1<<i))?putchar('1'):putchar('0');
-  printf("\n");
-}
 
 int main(int argc, char *argv[])
 {
