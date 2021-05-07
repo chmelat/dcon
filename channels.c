@@ -139,4 +139,5 @@ void showbits(unsigned int x)
     showbits(x >> 1); /* Recursion, bit shift 1 right (null from left) */
   }
   putc((x & 1) ? '1' : '0', stdout);
+  i = 0;
 }
